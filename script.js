@@ -59,10 +59,13 @@ async function loadAllComponents() {
     await loadComponent('header-container', 'components/header.html');
     await loadComponent('hero-container', 'components/hero.html');
     await loadComponent('services-container', 'components/services.html');
+    
+    // NEW LINE ADDED
+    await loadComponent('portfolio-container', 'components/portfolio.html');
+    
     await loadComponent('contact-container', 'components/contact.html');
     await loadComponent('footer-container', 'components/footer.html');
 
-    // HTML aane ke baad hi form logic chalega
     initForm();
 }
 
