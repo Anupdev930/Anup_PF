@@ -352,3 +352,65 @@ footer {
     font-size: 0.8rem;
     font-weight: 600;
 }
+
+/* --- RESPONSIVE NAVIGATION (Hamburger Menu) --- */
+
+/* Initially hide hamburger on Desktop */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Devices (Max width 768px) */
+@media (max-width: 768px) {
+    /* Show Hamburger */
+    .hamburger {
+        display: flex; 
+    }
+
+    /* Hide default Nav Links */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 80px; /* Header height */
+        right: 0;
+        height: calc(100vh - 80px); /* Full screen height minus header */
+        background-color: white;
+        flex-direction: column;
+        width: 60%; /* Menu width */
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        box-shadow: -2px 5px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+
+    /* Class to show menu when clicked */
+    .nav-links.active {
+        display: flex;
+    }
+    
+    /* Animation for Hamburger to X */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
