@@ -14,6 +14,25 @@ body {
 }
 
 /* Header & Nav Styling */
+/* --- FIX: Make the Container Sticky, not just the header inside --- */
+#header-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+/* Header styling remains, but remove 'position: sticky' from here if it exists */
+header {
+    background: #fff;
+    padding: 0 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    /* position: sticky;  <-- Is line ko hata do ya comment kar do */
+    /* top: 0;            <-- Isko bhi hata do */
+}
 header {
     background: #fff;
     padding: 0 5%;
