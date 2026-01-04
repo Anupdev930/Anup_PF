@@ -1,42 +1,4 @@
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form reload
-    
-    var btn = document.getElementById('submitBtn');
-    var status = document.getElementById('statusMsg');
-    
-    // Change button text to indicate processing
-    btn.innerHTML = "Sending...";
-    btn.disabled = true;
-
-    // Collect form data
-    var formData = new FormData(this);
-    
-    // YOUR APPS SCRIPT WEB APP URL GOES HERE
-    var scriptURL = 'https://script.google.com/macros/s/AKfycbzt_1g74UDlG-zHY4jvn193BlWMFebs7EPI7fuMruMOaCLeFr7GaQr_fcuMX4GWYls/exec';
-
-    fetch(scriptURL, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        // Handle success
-        status.innerHTML = "Thanks! We will contact you soon.";
-        status.style.color = "green";
-        btn.innerHTML = "Send Message";
-        btn.disabled = false;
-        document.getElementById('contactForm').reset();
-    })
-    .catch(error => {
-        // Handle error
-        console.error('Error!', error.message);
-        status.innerHTML = "Something went wrong. Please try again.";
-        status.style.color = "red";
-        btn.innerHTML = "Send Message";
-        btn.disabled = false;
-    });
-});
-
-// Function to load HTML components
+// Function to load HTML components dynamically
 async function loadComponent(id, file) {
     try {
         const response = await fetch(file);
@@ -55,23 +17,26 @@ async function loadComponent(id, file) {
 function initForm() {
     const form = document.getElementById('contactForm');
     
-    // Check if form exists (to prevent errors if contact section isn't loaded yet)
+    // Check if form exists to avoid errors
     if (form) {
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Prevent default reload
             
             var btn = document.getElementById('submitBtn');
             var status = document.getElementById('statusMsg');
             
+            // UI Feedback
             btn.innerHTML = "Sending...";
             btn.disabled = true;
 
             var formData = new FormData(this);
-            // REPLACE WITH YOUR GOOGLE SCRIPT URL
-            var scriptURL = 'YOUR_WEB_APP_URL_HERE'; 
+            
+            // YOUR REAL APPS SCRIPT URL
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbzt_1g74UDlG-zHY4jvn193BlWMFebs7EPI7fuMruMOaCLeFr7GaQr_fcuMX4GWYls/exec'; 
 
             fetch(scriptURL, { method: 'POST', body: formData })
             .then(response => {
+                // Success
                 status.innerHTML = "Thanks! We will contact you soon.";
                 status.style.color = "green";
                 btn.innerHTML = "Send Message";
@@ -79,8 +44,9 @@ function initForm() {
                 form.reset();
             })
             .catch(error => {
+                // Error
                 console.error('Error!', error.message);
-                status.innerHTML = "Something went wrong.";
+                status.innerHTML = "Something went wrong. Please try again.";
                 status.style.color = "red";
                 btn.innerHTML = "Send Message";
                 btn.disabled = false;
@@ -91,14 +57,14 @@ function initForm() {
 
 // MAIN EXECUTION: Load all components sequentially
 async function loadAllComponents() {
-    // We use 'await' to ensure sections load in order
+    // Load Header, Hero, Services, Contact, Footer
     await loadComponent('header-container', 'components/header.html');
     await loadComponent('hero-container', 'components/hero.html');
     await loadComponent('services-container', 'components/services.html');
     await loadComponent('contact-container', 'components/contact.html');
     await loadComponent('footer-container', 'components/footer.html');
 
-    // After HTML is loaded, initialize the Javascript logic for the form
+    // After HTML is injected, attach the JavaScript logic
     initForm();
 }
 
